@@ -1,0 +1,9 @@
+version: '3'
+services:
+  wppconnect:
+    image: wppconnect/server:latest
+    ports:
+      - "21465:21465" # Puerto de la API
+    environment:
+      - VIEW_QR_CONSOLE=true # Para ver el QR en la terminal
+      - SECRET_KEY=MI_CLAVE_SECRETA # Seguridad para tu API
