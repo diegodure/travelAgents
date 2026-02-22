@@ -7,3 +7,4 @@ langfuse
 langfuse-langchain
 python-dotenv
 requests
+faster-whisper

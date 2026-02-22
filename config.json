@@ -1,0 +1,18 @@
+{
+  "secretKey": "impulselabdd",
+  "host": "http://localhost",
+  "port": "21465",
+  "customUserDataDir": "./userDataDir/",
+  "startAllSession": true,
+  "maxListeners": 15,
+  "webhook": {
+    "url": "http://192.168.18.7:8000/webhook",
+    "autoDownload": true,
+    "readMessage": true,
+    "allUnreadOnStart": false
+  },
+  "log": {
+    "level": "silly",
+    "logger": ["console"]
+  }
+}

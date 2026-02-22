@@ -1,0 +1,17 @@
+{
+  "cancun": {
+    "nombre": "Premium Cancún",
+    "descripcion": "5 días, Hotel 5 estrellas",
+    "precio": 850
+  },
+  "madrid": {
+    "nombre": "Madrid Real",
+    "descripcion": "7 días, Incluye tour al Bernabéu",
+    "precio": 1200
+  },
+  "asuncion": {
+    "nombre": "Paraguay Relax",
+    "descripcion": "3 días en San Bernardino",
+    "precio": 300
+  }
+}

@@ -1,9 +1,11 @@
-version: '3'
 services:
   wppconnect:
-    image: wppconnect/server:latest
-    ports:
-      - "21465:21465" # Puerto de la API
+    image: mi-wppconnect:local
+    container_name: wppconnect_server
+    network_mode: "host"
+    volumes:
+      - ./config.json:/home/node/app/config.json
+      - ./config.json:/home/node/app/dist/config.json
+      - ./userDataDir:/home/node/app/userDataDir
     environment:
-      - VIEW_QR_CONSOLE=true # Para ver el QR en la terminal
-      - SECRET_KEY=MI_CLAVE_SECRETA # Seguridad para tu API
+      - VIEW_QR_CONSOLE=true
