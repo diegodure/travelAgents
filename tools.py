@@ -1,30 +1,45 @@
-from langchain_core.tools import tool 
+import unicodedata
 import json
 import os
+from langchain_core.tools import tool
 
 @tool
-def search_packages(destination: str) -> str:
-    """ÚSALA OBLIGATORIAMENTE para consultar precios reales. No respondas sin usarla."""
+def search_packages(destination: str, month: str = None) -> str:
+    """ÚSALA OBLIGATORIAMENTE para consultar precios reales. El mes es opcional."""
 
-    print(f"DEBUG: El agente está buscando el destino: {destination}")
+    def normalize_text(text):
+        if not text: return ""
+        return "".join(
+            c for c in unicodedata.normalize('NFD', text)
+            if unicodedata.category(c) != 'Mn'
+        ).lower().strip()
+
+    print(f"DEBUG: Buscando destino: {destination} | Mes: {month}")
     
-    # Ruta al archivo JSON
     file_path = os.path.join(os.path.dirname(__file__), 'packages.json')
     
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             packages = json.load(f)
 
-        print(f"DEBUG: Destinos cargados en JSON: {list(packages.keys())}")
+        dest_search = normalize_text(destination)
+        mes_search = normalize_text(month) if month else "default"
         
-        dest = destination.lower().strip()
+        if dest_search in packages:
+            p = packages[dest_search]
+            
+            # Obtener el diccionario de precios
+            precios = p.get("precios_por_mes", {})
+            
+            # 1. Intentar el mes exacto 
+            # 2. Si no está, intentar 'default'
+            # 3. Si no hay 'default', usar el campo 'precio' antiguo (por compatibilidad)
+            precio_final = precios.get(mes_search, precios.get("default", p.get("precio", 0)))
+            
+            msg_mes = f"para {month}" if month else "en tarifa base"
+            return f"DATOS_DEL_PAQUETE: {p['nombre']} | Precio {msg_mes}: ${precio_final} USD | Descripción: {p['descripcion']}"
         
-        if dest in packages:
-            p = packages[dest]
-            # Usamos un prefijo que obligue al modelo a copiar
-            return f"DATOS_DEL_PAQUETE: {p['nombre']} | Precio: ${p['precio']} USD | Descripción: {p['descripcion']}"
         else:
-            # Dinámicamente le decimos qué destinos SÍ tenemos
             disponibles = ", ".join([d.capitalize() for d in packages.keys()])
             return f"No tengo paquetes cerrados para {destination}. Actualmente solo cuento con: {disponibles}."
             

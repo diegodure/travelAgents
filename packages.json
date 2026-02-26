@@ -2,16 +2,36 @@
   "cancun": {
     "nombre": "Premium Cancún",
     "descripcion": "5 días, Hotel 5 estrellas",
-    "precio": 850
+    "precios_por_mes": {
+      "default": 850,
+      "junio": 950,
+      "diciembre": 1100
+    }
   },
   "madrid": {
     "nombre": "Madrid Real",
     "descripcion": "7 días, Incluye tour al Bernabéu",
-    "precio": 1200
+    "precios_por_mes": {
+      "default": 1200,
+      "julio": 1450
+    }
   },
-  "asuncion": {
-    "nombre": "Paraguay Relax",
-    "descripcion": "3 días en San Bernardino",
-    "precio": 300
+  "rio de janeiro": {
+    "nombre": "Río Espectacular",
+    "descripcion": "6 días en Copacabana",
+    "precios_por_mes": {
+      "default": 750,
+      "enero": 1150,
+      "febrero": 1250
+    }
+  },
+  "florianopolis": {
+    "nombre": "Floripa Verano",
+    "descripcion": "7 días en Canasvieiras",
+    "precios_por_mes": {
+      "default": 550,
+      "enero": 980,
+      "febrero": 900
+    }
   }
 }
